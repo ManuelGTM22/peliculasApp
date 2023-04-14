@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>Manuel Gabriel Torres Malena  20-1346</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+ <ion-searchbar [(ngModel)] ="term" (ionChange)="searchChanged()">
+   <ion-item>
+      <ion-label>Select search type</ion-label>
+      <ion-select [(ngModel)] = "type" (ionChange)="searchChanged()">
+        <ion-select-option selected="true" value="">All</ion-select-option>
+        <ion-select-option value="movies">Movies</ion-select-option>
+        <ion-select-option value="series">Series</ion-select-option>
+        <ion-select-option value="episode">Episodes</ion-select-option>
+      </ion-select>
+    </ion-item>
+</ion-searchbar>
+
+<ion-list>
+<ion-item button *ngFor = "let peli of (results | async)" [routerLink]="['/', 'peli', 'peli.imdbID']">
+ <ion-avatar slot="start">
+    <img src="{{peli.Poster}}" alt="{{peli.Title}}" *ngIf="peli.Poster != 'N/A'">
+  </ion-avatar>
+  <ion-label text-wrap>
+    <h3>{{peli.Title}}</h3>
+    <h3>{{peli.Year}}</h3>
+  </ion-label>
+    <ion-icon slot="end" *ngIf="peli.Type == 'movie'" name="videocam" ></ion-icon>
+    <ion-icon slot="end" *ngIf="peli.Type == 'series'" name="tv" ></ion-icon>
+    <ion-icon slot="end" *ngIf="peli.Type == 'episodes'" name="tablet-portrait" ></ion-icon>
+  </ion-item>
+</ion-list>  
+</ion-content>
